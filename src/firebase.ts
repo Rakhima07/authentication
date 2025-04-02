@@ -22,7 +22,6 @@
 import { initializeApp } from 'firebase/app';
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
-// Конфигурация Firebase
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_API_KEY,
     authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -32,10 +31,10 @@ const firebaseConfig = {
     appId: import.meta.env.VITE_APP_ID,
 };
 
-// Инициализация Firebase
+
 const app = initializeApp(firebaseConfig);
 
-// Инициализация аутентификации
+
 export const auth = getAuth(app);
 
 export async function emailSignIn(email: string, password: string) {
