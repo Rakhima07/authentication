@@ -7,7 +7,7 @@ import { Container, CssBaseline } from '@mui/material';
 import { Posts } from './pages/Posts.tsx';
 import { CreatePost } from './pages/CreatePost.tsx';
 import Header from './components/Header.tsx';
-
+import { Profile } from './pages/Profile.tsx';
 const PrivateRoute = ({ element }: { element: ReactNode }) => {
   const { user } = useAuthStore();
   return user ? element : <Navigate to="/login" />;
@@ -30,6 +30,7 @@ export const App = () => {
           <Route path="/login" element={<PublicRoute element={<Login />} />} />
           <Route path="/register" element={<PublicRoute element={<Register />} />} />
           <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
         </Routes>
       </Container>
     </>
