@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
-import { Button, TextField, Container, Box } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Button, TextField, Container, Box, Typography } from '@mui/material';
 import { useAuthStore } from '../store/useAuthStore';
 import { createPost } from '../Api/posts';
+import { useNavigate } from 'react-router-dom';
 
 export const CreatePost = () => {
   const [content, setContent] = useState('');
-  const { user } = useAuthStore();
+  const { user, profile } = useAuthStore();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+ 
+    if (profile && profile.role !== 'admin') {
+      navigate('/');
+    }
+  }, [profile, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,8 +25,23 @@ export const CreatePost = () => {
       userId: user.id,
       email: user.email || '',
       createdAt: new Date().toISOString(),
-    })
+    });
+
+    setContent('');
+    navigate('/');
   };
+
+  if (!profile || profile.role !== 'admin') {
+    return (
+      <Container maxWidth="md">
+        <Box sx={{ mt: 4 }}>
+          <Typography variant="h6" color="error">
+            You do not have permission to create posts.
+          </Typography>
+        </Box>
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="md">
@@ -39,4 +63,3 @@ export const CreatePost = () => {
     </Container>
   );
 };
-    

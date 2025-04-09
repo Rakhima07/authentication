@@ -8,6 +8,8 @@ import { Posts } from './pages/Posts.tsx';
 import { CreatePost } from './pages/CreatePost.tsx';
 import Header from './components/Header.tsx';
 import { Profile } from './pages/Profile.tsx';
+import {CreateProfile} from './pages/Createprofile.tsx'
+
 const PrivateRoute = ({ element }: { element: ReactNode }) => {
   const { user } = useAuthStore();
   return user ? element : <Navigate to="/login" />;
@@ -31,6 +33,8 @@ export const App = () => {
           <Route path="/register" element={<PublicRoute element={<Register />} />} />
           <Route path="*" element={<Navigate to="/" />} />
           <Route path="/profile" element={<PrivateRoute element={<Profile />} />} />
+          <Route path="/create-profile" element={<PrivateRoute element={<CreateProfile />} />}
+/>
         </Routes>
       </Container>
     </>
